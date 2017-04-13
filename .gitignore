@@ -3,3 +3,4 @@ test
 train
 try.py
 *.npy
+*.npz
