@@ -4,3 +4,5 @@ train
 try.py
 *.npy
 *.npz
+*.mat
+*.asv
