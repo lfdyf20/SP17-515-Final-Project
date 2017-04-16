@@ -6,3 +6,4 @@ try.py
 *.npz
 *.mat
 *.asv
+*image*

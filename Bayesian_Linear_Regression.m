@@ -1,12 +1,15 @@
 %% 
 clear;
 clc;
-
+rng('default');
+rng(1);
 %% load data 
 fprintf('start to load data\n');
-
-load('train.mat');
-load('test.mat');
+ 
+load('train_CNN_128.mat');
+load('test_CNN_128.mat');
+% load('train.mat');
+% load('test.mat');
 
 fprintf('load train and test successfully\n');
 fprintf('=================================\n');
@@ -26,8 +29,14 @@ fprintf('format data successfully\n');
 fprintf('========================\n');
 %% split data
 fprintf('start to sample data\n');
-x_train = X_train;
-y_train = Y_train;
+
+%set split parameters
+percent_sample = 1; 
+idx_train = randperm(N_train);
+
+%split data
+x_train = X_train(idx_train(1:round( N_train*percent_sample )),:);
+y_train = Y_train(idx_train(1:round( N_train*percent_sample )),:);
 x_test = X_test;
 y_test = Y_test;
 
@@ -44,7 +53,7 @@ fprintf('sample data successfully\n');
 clear -regexp ^X ^Y ^N ^D;
 clear test_labels test_x train_labels train_x;
 fprintf('clear original data successfully\n');
-fprintf('===================================\n');
+fprintf('===================================\n'); 
 %% SVD on training data
 fprintf('start to perform SVD\n');
 
@@ -52,7 +61,10 @@ fprintf('start to perform SVD\n');
 
 clear x_train;
 
-n_features = 200;
+% plot(sum(S))
+
+n_features = 1;
+
 S(:,n_features+1:end) = 0;
 x_train = U*S*V';
 
